@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Husnain Estate Advisor | Property Sale & Purchase</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background-color: #f4f6f8;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* HEADER */
+    header {
+      background: #0f172a;
+      color: #fff;
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      font-size: 18px;
+      opacity: 0.9;
+    }
+
+    /* SECTION */
+    section {
+      max-width: 1100px;
+      margin: auto;
+      padding: 50px 20px;
+    }
+
+    h2 {
+      font-size: 28px;
+      margin-bottom: 20px;
+      color: #0f172a;
+    }
+
+    /* ABOUT */
+    .about p {
+      font-size: 17px;
+    }
+
+    /* SERVICES */
+    .services {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .service-box {
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .service-box h3 {
+      margin-bottom: 10px;
+      color: #0f172a;
+    }
+
+    /* PROPERTIES */
+    .properties {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .property-card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .property-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .property-card .content {
+      padding: 20px;
+    }
+
+    .property-card h3 {
+      margin-bottom: 8px;
+      color: #0f172a;
+    }
+
+    /* CONTACT FORM */
+    form input, form textarea {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    form button {
+      margin-top: 15px;
+      padding: 12px;
+      background: #0f172a;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #0f172a;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 28px;
+      }
+    }
+  
+    /* WHATSAPP BUTTON */
+    .whatsapp {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #25D366;
+      color: #fff;
+      padding: 14px 18px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      z-index: 999;
+    }
+
+    /* LOGO */
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .logo img {
+      width: 60px;
+      height: 60px;
+    }
+
+    /* SLIDER */
+    .slider {
+      position: relative;
+      max-width: 100%;
+      height: 350px;
+      overflow: hidden;
+      border-radius: 12px;
+    }
+
+    .slides {
+      display: flex;
+      width: 300%;
+      animation: slide 12s infinite;
+    }
+
+    .slides img {
+      width: 100%;
+      height: 350px;
+      object-fit: cover;
+    }
+
+    @keyframes slide {
+      0% {transform: translateX(0);}
+      33% {transform: translateX(-100%);}
+      66% {transform: translateX(-200%);}
+      100% {transform: translateX(0);}
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <img src="https://via.placeholder.com/100" alt="Husnain Estate Logo">
+      <div>
+        <h1>Husnain Estate Advisor</h1>
+        <p>Trusted Property Sale & Purchase Consultants</p>
+      </div>
+    </div>
+  </header>
+
+  <section>
+    <div class="slider">
+      <div class="slides">
+        <img src="https://via.placeholder.com/1200x500?text=Luxury+Homes" alt="Slide 1">
+        <img src="https://via.placeholder.com/1200x500?text=Commercial+Properties" alt="Slide 2">
+        <img src="https://via.placeholder.com/1200x500?text=Best+Investment" alt="Slide 3">
+      </div>
+    </div>
+  </section>
+
+  <section class="about">
+    <h2>About Us</h2>
+    <p>
+      Husnain Estate Advisor is a professional real estate consultancy providing trusted services for property sale, purchase, and investment. We help clients find the best residential and commercial properties with complete transparency.
+    </p>
+  </section>
+
+  <section>
+    <h2>Our Services</h2>
+    <div class="services">
+      <div class="service-box">
+        <h3>Property Sale</h3>
+        <p>We help you sell your property at the best market value.</p>
+      </div>
+      <div class="service-box">
+        <h3>Property Purchase</h3>
+        <p>Find your dream home or investment property with expert guidance.</p>
+      </div>
+      <div class="service-box">
+        <h3>Investment Advice</h3>
+        <p>Secure and profitable real estate investment consultancy.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Featured Properties</h2>
+    <div class="properties">
+      <div class="property-card">
+        <img src="https://via.placeholder.com/400x250" alt="Property">
+        <div class="content">
+          <h3>Residential Plot</h3>
+          <p>Prime location – Best for living & investment.</p>
+        </div>
+      </div>
+
+      <div class="property-card">
+        <img src="https://via.placeholder.com/400x250" alt="Property">
+        <div class="content">
+          <h3>Commercial Plaza</h3>
+          <p>High rental income opportunity.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Contact Us</h2>
+    <form name="contact" method="POST" data-netlify="true">
+      <input type="hidden" name="form-name" value="contact">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Inquiry</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>© 2025 Husnain Estate Advisor | All Rights Reserved</p>
+  </footer>
+
+  <a href="https://wa.me/923001234567" target="_blank" class="whatsapp">Chat Now</a>
+
+</body>
+</html>
