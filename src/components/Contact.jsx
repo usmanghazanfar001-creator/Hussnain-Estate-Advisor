@@ -3,10 +3,11 @@ import { contactInfo } from "../data/content";
 
 const propertyTypes = ["Residential", "Commercial", "Plot", "Luxury", "Apartment", "Industrial"];
 
-// Where the PHP mailer endpoint lives. Same-origin ("/contact_process.php") works
-// when the backend/ folder is deployed alongside the built site. Override via
-// VITE_CONTACT_ENDPOINT in a .env file if the API is hosted elsewhere.
-const CONTACT_ENDPOINT = import.meta.env.VITE_CONTACT_ENDPOINT || "/contact_process.php";
+// Where the contact API lives. Defaults to the Vercel serverless function at
+// /api/contact (works automatically once deployed on Vercel — no config
+// needed). Override via VITE_CONTACT_ENDPOINT in a .env file if you deploy
+// the API elsewhere (e.g. the PHP version in backend/).
+const CONTACT_ENDPOINT = import.meta.env.VITE_CONTACT_ENDPOINT || "/api/contact";
 
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", phone: "", property_type: "", message: "" });

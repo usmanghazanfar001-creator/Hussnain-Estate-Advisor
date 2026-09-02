@@ -44,45 +44,39 @@ section updates automatically.
 To change the photos used in the hero slider or the societies reel, edit the `heroSlides`
 and `societyPhotos` arrays in that same file (images live in `src/assets/images/`).
 
-## Contact form — real email backend
+## Deploying on Vercel (recommended)
 
-The `backend/` folder is a PHP endpoint (same logic as your original
-`contact_process.php`, rebuilt to talk to the React form and return JSON) that emails
-every enquiry to you via PHPMailer/Gmail SMTP, exactly like your old site did. If the
-email fails to send for any reason, the form shows a "Send via WhatsApp instead" button
-so no enquiry is lost.
+This repo includes a serverless function at `api/contact.js` that Vercel runs
+automatically — no PHP hosting needed.
 
-### 1. Set up credentials
+1. Push this repo to GitHub (already done if you're reading this from there).
+2. On [vercel.com](https://vercel.com), click **Add New → Project** and import the repo.
+   Vercel auto-detects the Vite build settings — leave them as-is and click **Deploy**.
+3. Once deployed, go to **Project Settings → Environment Variables** and add:
 
-`backend/config.php` already has your original Gmail address and App Password copied in
-so it works immediately. **Please regenerate the App Password** at
-[myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords) and paste
-the new one in — the old one was previously sitting in a plain-text file, so it's safest
-to rotate it. Never commit `config.php` to a public repo (it's already git-ignored).
+   | Name        | Value                                             |
+   |-------------|----------------------------------------------------|
+   | `SMTP_USER` | your Gmail address, e.g. `you@gmail.com`           |
+   | `SMTP_PASS` | a Gmail **App Password** (not your normal password) — generate one at [myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords) |
+   | `TO_EMAIL`  | the address enquiries should be delivered to        |
+   | `FROM_NAME` | (optional) display name, e.g. `Hussnain Estate Advisor` |
 
-`backend/config.example.php` is a template if you ever need to recreate it.
+4. Redeploy (Vercel → Deployments → ⋯ → Redeploy) so the new environment
+   variables take effect.
+5. Also open `api/contact.js` and add your live Vercel URL (and any custom
+   domain) to the `ALLOWED_ORIGINS` list at the top, then push — this is the
+   CORS allowlist that protects the endpoint from being called from other sites.
 
-### 2. Deploy it
+Test it by submitting the form on your live site — you should get an email
+within a few seconds. If it fails, the form automatically offers a
+"Send via WhatsApp instead" button, and Vercel's **Deployments → Functions**
+logs will show the error.
 
-This needs a host that runs PHP (shared hosting / cPanel works fine — no Composer or
-special extensions required beyond the default `openssl`/`mbstring`, which almost every
-PHP host has).
+## Alternative: PHP backend (cPanel / shared hosting)
 
-1. Upload the whole `backend/` folder to your PHP host, e.g. as
-   `https://hussnainestateadvisor.com/contact_process.php` (upload the *contents* of
-   `backend/` to your web root, or to a subfolder and adjust the endpoint URL below).
-2. Build the React site (`npm run build`) and upload the contents of `dist/` to the same
-   host/domain.
-3. Because both live on the same domain, the form's default endpoint
-   (`/contact_process.php`) just works. If you host the API on a different domain,
-   create a `.env` file in the project root with:
-   ```
-   VITE_CONTACT_ENDPOINT=https://api.yourdomain.com/contact_process.php
-   ```
-   and add that domain to `allowed_origins` in `config.php`.
-
-### 3. Test it
-
-Submit the form once it's live — you should get an email at the `to_email` address in
-`config.php` within a few seconds. Check your host's PHP error log if it fails; the
-script logs SMTP errors there.
+If you'd rather host on traditional PHP hosting instead of Vercel, the
+`backend/` folder contains an equivalent PHPMailer-based endpoint
+(`contact_process.php`). See the comments in that file and set
+`VITE_CONTACT_ENDPOINT` (in `.env.example`) to point the React form at it.
+Only one of the two backends (Vercel function or PHP) needs to be set up —
+not both.
