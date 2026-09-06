@@ -10,7 +10,7 @@ export default function Properties() {
   );
 
   return (
-    <section id="properties" className="bg-white py-20 md:py-28">
+    <section id="properties" className="bg-white pb-20 pt-10 md:pb-28 md:pt-14">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <p className="mb-3 text-xs font-semibold uppercase tracking-widest2 text-gold-600">
           Portfolio

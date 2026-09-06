@@ -1,0 +1,115 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: #101a33;
+  background-color: #fbfaf6;
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-fraunces), serif;
+  }
+}
+
+::selection {
+  background: #bd9448;
+  color: #fff;
+}
+
+/* Skip-to-content link: visually hidden until focused */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -3rem;
+  z-index: 100;
+  background: #101a33;
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+  border-radius: 9999px;
+  transition: top 150ms ease-out;
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+@keyframes kenburns {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.09);
+  }
+}
+.animate-kenburns {
+  animation: kenburns 7s ease-out forwards;
+}
+
+@keyframes fillbar {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes slideup {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-slideup {
+  animation: slideup 500ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-kenburns,
+  .animate-slideup {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Custom scrollbar for the horizontal society reel */
+.reel::-webkit-scrollbar {
+  height: 6px;
+}
+.reel::-webkit-scrollbar-thumb {
+  background: #d9bd7d;
+  border-radius: 999px;
+}
+.reel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Visible keyboard-focus ring across interactive elements (kept subtle,
+   gold to match brand, and skipped for mouse users via :focus-visible) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #bd9448;
+  outline-offset: 2px;
+}

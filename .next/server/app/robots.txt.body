@@ -1,0 +1,6 @@
+User-Agent: *
+Allow: /
+Disallow: /api/
+
+Host: https://www.hussnainestateadvisor.com
+Sitemap: https://www.hussnainestateadvisor.com/sitemap.xml

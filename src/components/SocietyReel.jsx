@@ -38,7 +38,7 @@ export default function SocietyReel() {
   }, [lightbox]);
 
   return (
-    <section id="societies" className="bg-sand-50 py-20 md:py-28">
+    <section id="societies" className="bg-sand-50 pb-10 pt-20 md:pb-14 md:pt-28">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>

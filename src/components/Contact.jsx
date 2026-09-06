@@ -3,6 +3,51 @@ import { contactInfo } from "../data/content";
 
 const propertyTypes = ["Residential", "Commercial", "Plot", "Luxury", "Apartment", "Industrial"];
 
+/** Consistent icon-badge row used for the email/phone/address cards below
+ * the form — swaps the old raw emoji for crisp, theme-colored SVGs. */
+function InfoRow({ icon, label, value, href, as: Tag = "a", ...rest }) {
+  const content = (
+    <>
+      <span className="flex h-11 w-11 flex-none items-center justify-center rounded-full bg-gold-50 text-gold-600 transition-colors group-hover:bg-gold-500 group-hover:text-white">
+        {icon}
+      </span>
+      <span className="flex flex-col">
+        <span className="text-xs font-semibold uppercase tracking-wide text-ink-800/50">{label}</span>
+        <span className="text-sm font-medium text-ink-800">{value}</span>
+      </span>
+    </>
+  );
+  const className =
+    "group flex items-center gap-4 rounded-xl border border-ink-900/10 px-5 py-4 transition-colors hover:border-gold-500";
+  return Tag === "a" ? (
+    <a href={href} className={className} {...rest}>
+      {content}
+    </a>
+  ) : (
+    <Tag className={className} {...rest}>
+      {content}
+    </Tag>
+  );
+}
+
+const MailIcon = (
+  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+    <rect x="3" y="5" width="18" height="14" rx="2.5" />
+    <path d="m4 7 8 6 8-6" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+const PhoneIcon = (
+  <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.4 21 3 13.6 3 4.5a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.24.2 2.45.57 3.57a1 1 0 0 1-.25 1.02l-2.2 2.2Z" />
+  </svg>
+);
+const PinIcon = (
+  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+    <path d="M12 21s-7-6.1-7-11.5A7 7 0 0 1 19 9.5C19 14.9 12 21 12 21Z" strokeLinejoin="round" />
+    <circle cx="12" cy="9.5" r="2.5" />
+  </svg>
+);
+
 // Where the contact API lives. Defaults to the Vercel serverless function at
 // /api/contact (works automatically once deployed on Vercel — no config
 // needed). Override via VITE_CONTACT_ENDPOINT in a .env file if you deploy
@@ -142,21 +187,9 @@ export default function Contact() {
           </form>
 
           <div className="lg:col-span-2 flex flex-col gap-4">
-            <a
-              href={`mailto:${contactInfo.email}`}
-              className="flex items-center gap-3 rounded-xl border border-ink-900/10 px-5 py-4 text-sm font-medium text-ink-800 transition-colors hover:border-gold-500"
-            >
-              ✉️ {contactInfo.email}
-            </a>
-            <a
-              href={contactInfo.phoneHref}
-              className="flex items-center gap-3 rounded-xl border border-ink-900/10 px-5 py-4 text-sm font-medium text-ink-800 transition-colors hover:border-gold-500"
-            >
-              📞 {contactInfo.phone}
-            </a>
-            <p className="flex items-start gap-3 rounded-xl border border-ink-900/10 px-5 py-4 text-sm font-medium text-ink-800">
-              📍 {contactInfo.address}
-            </p>
+            <InfoRow icon={MailIcon} label="Email" value={contactInfo.email} href={`mailto:${contactInfo.email}`} />
+            <InfoRow icon={PhoneIcon} label="Phone" value={contactInfo.phone} href={contactInfo.phoneHref} />
+            <InfoRow icon={PinIcon} label="Office" value={contactInfo.address} as="div" />
             <div className="overflow-hidden rounded-xl border border-ink-900/10">
               <iframe
                 src={contactInfo.mapEmbed}

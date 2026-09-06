@@ -2,10 +2,12 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { heroSlides } from "../data/content";
 
 const SLIDE_DURATION = 5500;
+const SWIPE_THRESHOLD = 40;
 
 export default function Hero() {
   const [index, setIndex] = useState(0);
   const timerRef = useRef(null);
+  const touchStartX = useRef(null);
 
   const goTo = useCallback((i) => {
     setIndex((i + heroSlides.length) % heroSlides.length);
@@ -22,9 +24,25 @@ export default function Hero() {
     return () => clearInterval(timerRef.current);
   }, [index]);
 
+  // Swipe support — arrows are desktop-only, so touch users get the same
+  // control via a left/right swipe on the hero itself.
+  const onTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+  const onTouchEnd = (e) => {
+    if (touchStartX.current == null) return;
+    const delta = e.changedTouches[0].clientX - touchStartX.current;
+    if (Math.abs(delta) > SWIPE_THRESHOLD) {
+      delta < 0 ? next() : prev();
+    }
+    touchStartX.current = null;
+  };
+
   return (
     <section
       id="home"
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
       className="relative flex min-h-[100svh] items-end overflow-hidden bg-ink-900"
     >
       {heroSlides.map((slide, i) => (
@@ -76,34 +94,17 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Arrow controls */}
-      <button
-        aria-label="Previous slide"
-        onClick={prev}
-        className="group absolute left-3 top-1/2 z-20 hidden -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/20 p-3 text-white backdrop-blur-sm transition-colors hover:border-gold-400 hover:text-gold-400 md:flex"
-      >
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M15 18l-6-6 6-6" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      </button>
-      <button
-        aria-label="Next slide"
-        onClick={next}
-        className="group absolute right-3 top-1/2 z-20 hidden -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/20 p-3 text-white backdrop-blur-sm transition-colors hover:border-gold-400 hover:text-gold-400 md:flex"
-      >
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      </button>
-
       {/* Slide indicators with progress fill */}
-      <div className="absolute bottom-6 right-5 z-20 flex gap-2 md:right-8">
+      <div className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 gap-2 md:left-auto md:right-8 md:translate-x-0">
         {heroSlides.map((s, i) => (
           <button
             key={s.src}
             aria-label={`Show slide ${i + 1}: ${s.caption}`}
+            aria-current={i === index}
             onClick={() => goTo(i)}
-            className="relative h-1.5 w-8 overflow-hidden rounded-full bg-white/25"
+            className={`group relative h-1.5 overflow-hidden rounded-full bg-white/25 transition-all duration-300 ease-out ${
+              i === index ? "w-9 shadow-[0_0_10px_rgba(203,167,95,0.7)]" : "w-4 hover:bg-white/40"
+            }`}
           >
             {i === index && (
               <span
@@ -112,7 +113,7 @@ export default function Hero() {
                 style={{ animation: `fillbar ${SLIDE_DURATION}ms linear forwards` }}
               />
             )}
-            {i < index && <span className="absolute inset-0 rounded-full bg-gold-400" />}
+            {i < index && <span className="absolute inset-0 rounded-full bg-gold-400/70" />}
           </button>
         ))}
       </div>
