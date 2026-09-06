@@ -56,10 +56,12 @@ export default function FloatingButtons() {
       </FloatingAction>
 
       <FloatingAction
-        href={`mailto:${contactInfo.email}`}
+        href={contactInfo.emailHref}
         label="Email us"
         size="h-12 w-12"
         bg="#101a33"
+        target="_blank"
+        rel="noopener noreferrer"
       >
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
           <rect x="3" y="5" width="18" height="14" rx="2.5" />

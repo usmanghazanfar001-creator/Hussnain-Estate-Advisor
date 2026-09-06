@@ -187,7 +187,14 @@ export default function Contact() {
           </form>
 
           <div className="lg:col-span-2 flex flex-col gap-4">
-            <InfoRow icon={MailIcon} label="Email" value={contactInfo.email} href={`mailto:${contactInfo.email}`} />
+            <InfoRow
+              icon={MailIcon}
+              label="Email"
+              value={contactInfo.email}
+              href={contactInfo.emailHref}
+              target="_blank"
+              rel="noopener noreferrer"
+            />
             <InfoRow icon={PhoneIcon} label="Phone" value={contactInfo.phone} href={contactInfo.phoneHref} />
             <InfoRow icon={PinIcon} label="Office" value={contactInfo.address} as="div" />
             <div className="overflow-hidden rounded-xl border border-ink-900/10">

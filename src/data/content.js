@@ -127,6 +127,11 @@ export const contactInfo = {
   phone: "+92 300 7632767",
   phoneHref: "tel:+923007632767",
   email: "Tippualijee777@gmail.com",
+  // Gmail's web compose — opens straight to a new message in the browser
+  // instead of relying on a desktop mail client (mailto:), which many
+  // visitors don't have configured.
+  emailHref:
+    "https://mail.google.com/mail/?view=cm&fs=1&to=Tippualijee777@gmail.com&su=Property%20Inquiry",
   whatsapp: "https://wa.me/923007632767?text=Hello%20I%20want%20property%20details",
   facebook: "https://www.facebook.com/share/17F7oSv68W/",
   instagram: "https://www.instagram.com/tippu7618?igsh=MXF6ZHVhdmk2OGU0eQ==",

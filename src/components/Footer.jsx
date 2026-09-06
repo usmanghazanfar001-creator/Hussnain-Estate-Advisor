@@ -1,3 +1,4 @@
+import logo from "../assets/images/logo-modified.png";
 import { contactInfo } from "../data/content";
 
 const socialLinks = [
@@ -46,53 +47,56 @@ const socialLinks = [
   },
 ];
 
+const quickLinks = [
+  ["Home", "#home"],
+  ["Societies", "#societies"],
+  ["Properties", "#properties"],
+  ["About", "#about"],
+  ["Contact", "#contact"],
+];
+
+const MailIcon = (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+    <rect x="3" y="5" width="18" height="14" rx="2.5" />
+    <path d="m4 7 8 6 8-6" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+const PhoneIcon = (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.4 21 3 13.6 3 4.5a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.24.2 2.45.57 3.57a1 1 0 0 1-.25 1.02l-2.2 2.2Z" />
+  </svg>
+);
+const PinIcon = (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+    <path d="M12 21s-7-6.1-7-11.5A7 7 0 0 1 19 9.5C19 14.9 12 21 12 21Z" strokeLinejoin="round" />
+    <circle cx="12" cy="9.5" r="2.5" />
+  </svg>
+);
+const ChevronIcon = (
+  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+    <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
 export default function Footer() {
+  const mapLink = contactInfo.mapEmbed.replace("&output=embed", "");
+
   return (
-    <footer className="bg-ink-950 pt-16 text-sand-100/80">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-5 pb-12 sm:grid-cols-2 md:grid-cols-4 md:px-8">
-        <div>
-          <h3 className="font-display text-xl font-semibold text-white">Hussnain Estate Advisor</h3>
-          <p className="mt-3 text-sm">Your property, our priority.</p>
-        </div>
+    <footer className="relative overflow-hidden bg-ink-950 pt-16 text-sand-100/80">
+      {/* subtle brand-colored glow for depth */}
+      <div className="pointer-events-none absolute -top-24 left-1/2 h-64 w-[36rem] -translate-x-1/2 rounded-full bg-gold-500/10 blur-3xl" />
 
-        <div>
-          <h4 className="text-sm font-semibold uppercase tracking-wide text-white/70">Quick links</h4>
-          <ul className="mt-4 flex flex-col gap-2 text-sm">
-            {[
-              ["Home", "#home"],
-              ["Societies", "#societies"],
-              ["Properties", "#properties"],
-              ["Contact", "#contact"],
-            ].map(([label, href]) => (
-              <li key={href}>
-                <a href={href} className="transition-colors hover:text-gold-400">
-                  {label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div>
-          <h4 className="text-sm font-semibold uppercase tracking-wide text-white/70">Contact</h4>
-          <ul className="mt-4 flex flex-col gap-2 text-sm">
-            <li>
-              <a href={contactInfo.phoneHref} className="transition-colors hover:text-gold-400">
-                {contactInfo.phone}
-              </a>
-            </li>
-            <li>
-              <a href={`mailto:${contactInfo.email}`} className="transition-colors hover:text-gold-400">
-                {contactInfo.email}
-              </a>
-            </li>
-            <li>Faisalabad, Pakistan</li>
-          </ul>
-        </div>
-
-        <div>
-          <h4 className="text-sm font-semibold uppercase tracking-wide text-white/70">Follow</h4>
-          <div className="mt-4 flex gap-3">
+      <div className="relative mx-auto grid max-w-7xl grid-cols-1 gap-10 px-5 pb-12 sm:grid-cols-2 md:px-8 lg:grid-cols-5 lg:gap-8">
+        <div className="lg:col-span-2">
+          <a href="#home" className="flex items-center gap-3">
+            <img src={logo} alt="Hussnain Estate Advisor logo" className="h-12 w-12 rounded-full object-cover ring-1 ring-white/15" />
+            <span className="font-display text-xl font-semibold text-white">Hussnain Estate Advisor</span>
+          </a>
+          <p className="mt-4 max-w-xs text-sm leading-relaxed">
+            Your property, our priority — 23 years guiding families and investors through
+            Faisalabad's most trusted housing societies.
+          </p>
+          <div className="mt-5 flex gap-3">
             {socialLinks.map((s) => (
               <a
                 key={s.label}
@@ -108,10 +112,74 @@ export default function Footer() {
             ))}
           </div>
         </div>
+
+        <div className="lg:col-span-1 lg:border-l lg:border-white/10 lg:pl-8">
+          <h4 className="text-xs font-semibold uppercase tracking-widest2 text-gold-400">Quick links</h4>
+          <ul className="mt-4 flex flex-col gap-2.5 text-sm">
+            {quickLinks.map(([label, href]) => (
+              <li key={href}>
+                <a
+                  href={href}
+                  className="group inline-flex items-center gap-1.5 transition-colors hover:text-gold-400"
+                >
+                  <span className="text-gold-500/70 transition-transform duration-200 group-hover:translate-x-0.5">
+                    {ChevronIcon}
+                  </span>
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="lg:col-span-2 lg:border-l lg:border-white/10 lg:pl-8">
+          <h4 className="text-xs font-semibold uppercase tracking-widest2 text-gold-400">Contact</h4>
+          <ul className="mt-4 flex flex-col gap-3 text-sm">
+            <li>
+              <a
+                href={contactInfo.phoneHref}
+                className="group flex items-center gap-3 transition-colors hover:text-gold-400"
+              >
+                <span className="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-white/5 text-gold-400 ring-1 ring-white/10 transition-colors group-hover:bg-gold-500 group-hover:text-ink-900">
+                  {PhoneIcon}
+                </span>
+                {contactInfo.phone}
+              </a>
+            </li>
+            <li>
+              <a
+                href={contactInfo.emailHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-3 transition-colors hover:text-gold-400"
+              >
+                <span className="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-white/5 text-gold-400 ring-1 ring-white/10 transition-colors group-hover:bg-gold-500 group-hover:text-ink-900">
+                  {MailIcon}
+                </span>
+                {contactInfo.email}
+              </a>
+            </li>
+            <li>
+              <a
+                href={mapLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-3 transition-colors hover:text-gold-400"
+              >
+                <span className="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-white/5 text-gold-400 ring-1 ring-white/10 transition-colors group-hover:bg-gold-500 group-hover:text-ink-900">
+                  {PinIcon}
+                </span>
+                Faisalabad, Pakistan
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
 
-      <div className="border-t border-white/10 py-5 text-center text-xs text-white/50">
-        © {new Date().getFullYear()} Hussnain Estate Advisor. All rights reserved.
+      <div className="relative border-t border-white/10 py-5">
+        <div className="mx-auto max-w-7xl px-5 text-center text-xs text-white/50 md:px-8">
+          <p>© {new Date().getFullYear()} Hussnain Estate Advisor. All rights reserved.</p>
+        </div>
       </div>
     </footer>
   );
